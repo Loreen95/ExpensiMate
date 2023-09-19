@@ -1,21 +1,29 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
-import forms from '@tailwindcss/forms';
-
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
     content: [
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
+      "./resources/**/*.blade.php",
+      "./resources/**/*.js",
+      "./resources/**/*.vue",
     ],
-
     theme: {
-        extend: {
-            fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
-        },
+      extend: {},
     },
-
-    plugins: [forms],
-};
+    plugins: [],
+      content: [
+          "./resources/**/*.blade.php",
+          "./resources/**/*.js",
+          "./resources/**/*.vue",
+      ],
+      theme: {
+          extend: {
+              colors: {
+                  'text': '#040F0F', // Zwart (Black)
+                  'neutral': '#C9CBA3', // Salie (Sage)
+                  'primary': '#FFFFFF', // Wit (White)
+                  'accent': '#E26D5C', // Bittersweet
+                  'secondary': '#4E6E5D', // Hookers Groen (Hooker's Green)
+              },
+          },
+      },
+      plugins: []
+    }
