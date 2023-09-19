@@ -10,7 +10,6 @@
 </head>
 <body>
     @include('cookie-consent::index')
-
         <header class="h-15 bg-text" id="mainHeader">
             @include('layout.header')
         </header>
