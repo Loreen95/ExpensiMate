@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'language' => 'nl', // Change this to your desired language code
 
     /*
      * Use this setting to enable the cookie consent dialog.
@@ -18,4 +19,5 @@ return [
      * Set the cookie duration in days.  Default is 365 * 20.
      */
     'cookie_lifetime' => 365 * 20,
+
 ];

@@ -9,19 +9,20 @@
     <title>ExpensiMate</title>
 </head>
 <body>
-    @include('cookie-consent::index')
-
-        <header class="h-15 bg-text" id="mainHeader">
-            @include('layout.header')
-        </header>
-        <main class="h-screen border border-gray-500">
-            <div class="flex justify-center items-center" id="content">
+    <div class="cookie-consent-container">
+         @include('cookie-consent::index')
+    </div>
+    <header class="h-15 bg-text mt-12" id="mainHeader">
+        @include('layout.header')
+    </header>
+    <main class="h-screen border border-gray-500">
+        <div class="flex justify-center items-center" id="content">
             @yield('content')
-            </div>
-        </main>
-        <footer class="h-15 ">          
-            @include('layout.footer')   
-        </footer>
+        </div>
+    </main>
+    <footer class="h-10">          
+        @include('layout.footer')   
+    </footer>
 </body>
 <script src="{{ asset('js/script.js') }}"></script>
 </html>

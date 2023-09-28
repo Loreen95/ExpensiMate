@@ -20,6 +20,9 @@
 
             function hideCookieDialog() {
                 const dialogs = document.getElementsByClassName('js-cookie-consent');
+                const header = document.querySelector("#mainHeader");
+
+                header.classList.remove('mt-12');
 
                 for (let i = 0; i < dialogs.length; ++i) {
                     dialogs[i].style.display = 'none';
