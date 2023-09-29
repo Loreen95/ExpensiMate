@@ -17,11 +17,21 @@ module.exports = {
       theme: {
           extend: {
               colors: {
-                  'text': '#040F0F', // Zwart (Black)
-                  'neutral': '#C9CBA3', // Salie (Sage)
-                  'primary': '#FFFFFF', // Wit (White)
-                  'accent': '#E26D5C', // Bittersweet
-                  'secondary': '#4E6E5D', // Hookers Groen (Hooker's Green)
+                'black': '#0D1B2A',
+                'oxford': '#1B263B',
+                'blue': '#415A77',
+                'silver': '#778DA9',
+                'platinum': '#E0E1DD',
+                'white': '#FFFFFF'
+
+                  // 'black': '#040F0F', // Zwart (Black)
+                  // 'sage': '#C9CBA3', // Salie (Sage)
+                  // 'white': '#FFFFFF', // Wit (White)
+                  // 'bittsweet': '#E26D5C', // Bittersweet
+                  // 'hookgreen': '#4E6E5D', // Hookers Groen (Hooker's Green)
+                  // 'blue' : '#ADD9F4',
+                  // 'trueblue' : '#476C9B',
+                  // 'munsell' : '#468C98',
               },
           },
       },

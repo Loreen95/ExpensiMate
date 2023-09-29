@@ -8,21 +8,25 @@
      @vite('resources/css/style.css')
     <title>ExpensiMate</title>
 </head>
-<body>
+<body class="bg-silver">
     <div class="cookie-consent-container">
-         @include('cookie-consent::index')
+        @include('cookie-consent::index')
     </div>
-    <header class="h-15 bg-text mt-12" id="mainHeader">
+    
+    <header class="h-15 bg-blue" id="mainHeader">
         @include('layout.header')
     </header>
-    <main class="h-screen border border-gray-500">
+     
+    <main class="h-screen">
         <div class="flex justify-center items-center" id="content">
             @yield('content')
         </div>
     </main>
-    <footer class="h-10">          
+    
+    <footer class="h-12 bg-accent">          
         @include('layout.footer')   
     </footer>
+    
 </body>
 <script src="{{ asset('js/script.js') }}"></script>
 </html>

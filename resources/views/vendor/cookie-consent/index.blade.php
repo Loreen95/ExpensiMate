@@ -1,14 +1,18 @@
-@if($cookieConsentConfig['enabled'] && ! $alreadyConsentedWithCookies)
-
+@if($cookieConsentConfig['enabled'] && !$alreadyConsentedWithCookies)
     @include('cookie-consent::dialogContents')
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const header = document.querySelector("#mainHeader");
+            if (header) {
+                header.classList.add('mt-12');
+            }
+        });
 
         window.laravelCookieConsent = (function () {
-
             const COOKIE_VALUE = 1;
             const COOKIE_DOMAIN = '{{ config('session.domain') ?? request()->getHost() }}';
-
+            
             function consentWithCookies() {
                 setCookie('{{ $cookieConsentConfig['cookie_name'] }}', COOKIE_VALUE, {{ $cookieConsentConfig['cookie_lifetime'] }});
                 hideCookieDialog();
@@ -16,6 +20,7 @@
 
             function cookieExists(name) {
                 return (document.cookie.split('; ').indexOf(name + '=' + COOKIE_VALUE) !== -1);
+                
             }
 
             function hideCookieDialog() {
@@ -52,6 +57,7 @@
             return {
                 consentWithCookies: consentWithCookies,
                 hideCookieDialog: hideCookieDialog
+                
             };
         })();
     </script>
