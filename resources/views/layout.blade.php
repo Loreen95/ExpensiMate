@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
      @vite('resources/css/app.css')
      @vite('resources/css/style.css')
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.11.0/css/flag-icons.min.css"/>
     <title>ExpensiMate</title>
 </head>
 <body class="bg-silver">
@@ -17,7 +18,7 @@
         @include('layout.header')
     </header>
      
-    <main class="h-screen">
+    <main class="flex-1">
         <div class="flex justify-center items-center" id="content">
             @yield('content')
         </div>
@@ -26,7 +27,5 @@
     <footer class="h-12 bg-accent">          
         @include('layout.footer')   
     </footer>
-    
 </body>
-<script src="{{ asset('js/script.js') }}"></script>
 </html>

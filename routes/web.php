@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/financeboard', [FinanceController::class, 'index'])->name('finance.index');
+Route::get('/finance/dashboard', [FinanceController::class, 'showFixedExpenses'])->name('finance.dashboard');
+
+Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
+
 
 require __DIR__.'/auth.php';

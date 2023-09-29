@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->decimal('cost');
             $table->string('description');
+            $table->enum('expense_type', ['fixed', 'variable']);
             $table->date('due_date');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
