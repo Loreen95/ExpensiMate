@@ -2,12 +2,12 @@
 
 // Cost.php (Cost model)
 namespace App\Models;
-use App\Models\Costs;
+
+use App\Models\Category; // Import the Category model
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Categories;
 
-class Costs extends Model
+class Cost extends Model
 {
     // Define the table associated with this model
     protected $table = 'costs';
@@ -22,7 +22,7 @@ class Costs extends Model
     public function showFixedExpenses()
     {
         // Retrieve fixed expenses from the database
-        $fixedExpenses = Costs::where('expense_type', 'fixed')->get();
+        $fixedExpenses = Cost::where('expense_type', 'fixed')->get();
 
         return view('finance.dashboard', ['fixedExpenses' => $fixedExpenses]);
     }

@@ -1,13 +1,9 @@
 <?php
 
-// Category.php (Category model)
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Costs;
 
-
-class Categories extends Model
+class Category extends Model
 {
     // Define the table associated with this model
     protected $table = 'categories';

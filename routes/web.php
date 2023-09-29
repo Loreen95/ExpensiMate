@@ -30,8 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/financeboard', [FinanceController::class, 'index'])->name('finance.index');
-Route::get('/finance/dashboard', [FinanceController::class, 'showFixedExpenses'])->name('finance.dashboard');
+Route::get('/financeboard', [FinanceController::class, 'dashboard'])->name('finance.dashboard');
 
 Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
 

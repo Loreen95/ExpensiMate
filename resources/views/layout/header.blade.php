@@ -7,7 +7,7 @@
     </svg>
 </button>
 <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-    <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0 md:border-0">
+    <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0 md:border-0 relative">
         <li>    
             <a href="{{ route('register') }}" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white">
                 {{ trans('general.register') }}
@@ -18,23 +18,28 @@
                 {{ trans('general.login') }}
             </a>
         </li>
-        <button class="flex items-center space-x-2 focus:outline-none lang-dropdown-button">
-            <span class="fi fi-gb p-2" id="flag-icon"></span>
-        </button>
-        <div class="absolute hidden mt-2 w-24 bg-white border border-gray-300 rounded-lg lang-dropdown-menu">
-            <li>
-                <a href="{{ route('lang.switch', 'en') }}" class="block px-4 py-2 hover:bg-gray-100">
-                    <span class="fi fi-gb p-2" id="flag-en"></span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('lang.switch', 'nl') }}" class="block px-4 py-2 hover:bg-gray-100">
-                    <span class="fi fi-nl p-2" id="flag-nl"></span>
-                </a>
-            </li>
-        </div>        
+        <li class="relative">
+            <button class="flex items-center focus:outline-none mt-1 lang-dropdown-button">
+                <span class="fi fi-gb" id="flag-icon"></span>
+            </button>
+            <div class="absolute hidden mt-8 w-7 bg-white lang-dropdown-menu" style="left: -1.2px;">
+                <ul>
+                    <li>
+                        <a href="{{ route('lang.switch', 'en') }}" class="block py-2 ml-1 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white">
+                            <span class="fi fi-gb" id="flag-en"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('lang.switch', 'nl') }}" class="block py-2 ml-1 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white">
+                            <span class="fi fi-nl" id="flag-nl"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
     </ul>
 </div>
+
 
 <script>
     // Navbar controls:
