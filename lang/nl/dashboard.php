@@ -26,6 +26,14 @@ return [
         'over_budget0' => 'Je hebt deze maand te veel uitgegeven',
         'euro_sign' => '€',
         'total' => 'Totaal',
+        'due' => 'Vervaldatum',
+        'upcoming' => 'Aankomende rekeningen',
+        'add' => 'Toevoegen',
+        'expenses' => 'Kosten',
+        'categories' => 'Categorie',
+        'delete_text' => 'Weet u zeker dat u dit item wilt verwijderen? Deze actie kan niet teruggedraaid worden!',
+        'confirm' => 'Doorgaan',
+        'cancel' => 'Annuleren',
     ],
 ];
 

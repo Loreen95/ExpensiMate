@@ -17,7 +17,9 @@
     <header class="h-15 bg-blue" id="mainHeader">
         @include('layout.header')
     </header>
-     
+    @auth
+        @include('finance.navbar') 
+    @endauth
     <main class="flex-1">
         <div class="flex justify-center items-center" id="content">
             @yield('content')

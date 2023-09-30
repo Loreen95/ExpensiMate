@@ -21,5 +21,13 @@ return [
         'over_budget1' => 'over budget this month',
         'euro_sign' => '€',
         'total' => 'Total',
+        'due' => 'Due date',
+        'upcoming' => 'Upcoming bills',
+        'add' => 'Submit',
+        'expenses' => 'Expense',
+        'categories' => 'Category',
+        'delete_text' => 'Are you sure you wish to delete this item? This cannot be undone!',
+        'confirm' => 'Confirm',
+        'cancel' => 'Cancel',
     ],
 ];

@@ -8,6 +8,18 @@
 </button>
 <div class="hidden w-full md:block md:w-auto" id="navbar-default">
     <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0 md:border-0 relative">
+        @if(Auth::check())
+        <li>
+            <a href=" {{ route('finance.dashboard') }}" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white">
+                {{ trans('general.finances') }} 
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('dashboard') }}" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white">
+                {{ trans('general.dashboard') }}
+            </a>
+        </li>
+        @else
         <li>    
             <a href="{{ route('register') }}" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white">
                 {{ trans('general.register') }}
@@ -18,6 +30,7 @@
                 {{ trans('general.login') }}
             </a>
         </li>
+        @endif
         <li class="relative">
             <button class="flex items-center focus:outline-none mt-1 lang-dropdown-button">
                 <span class="fi fi-gb" id="flag-icon"></span>

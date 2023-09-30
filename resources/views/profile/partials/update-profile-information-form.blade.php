@@ -20,19 +20,34 @@
         <div>
             <x-input-label for="firstname" :value="__('Voornaam')" />
             <x-text-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" :value="old('firstname')" required autofocus autocomplete="firstname" />
-            <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
+            @if ($errors->has('firstname'))
+                @foreach ($errors->get('firstname') as $error)
+                    <x-input-error :message="$error" class="mt-2" />
+                @endforeach
+            @endif
+            {{-- <x-input-error :messages="$errors->get('firstname')" class="mt-2" /> --}}
         </div>
 
         <div class="mt-4">
             <x-input-label for="lastname" :value="__('Achternaam')" />
             <x-text-input id="lastname" class="block mt-1 w-full" type="text" name="lastname" :value="old('lastname')" required autofocus autocomplete="lastname" />
-            <x-input-error :messages="$errors->get('lastname')" class="mt-2" />
+            @if ($errors->has('lastname'))
+                @foreach ($errors->get('lastname') as $error)
+                    <x-input-error :message="$error" class="mt-2" />
+                @endforeach
+            @endif
+            {{-- <x-input-error :messages="$errors->get('lastname')" class="mt-2" /> --}}
         </div>
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('email')" />
+            @if ($errors->has('email'))
+                @foreach ($errors->get('email') as $error)
+                    <x-input-error :message="$error" class="mt-2" />
+                @endforeach
+            @endif
+            {{-- <x-input-error class="mt-2" :messages="$errors->get('email')" /> --}}
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
