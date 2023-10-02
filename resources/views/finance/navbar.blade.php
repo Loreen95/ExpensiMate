@@ -7,7 +7,7 @@
                 </a>
             </li>
             <li>
-                <a href=" {{ route('finance.add') }} " class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white"> 
+                <a href=" {{ route('finance.cost_add') }} " class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white"> 
                     {{ trans('dashboard.finance.expenses') . ' ' . trans('dashboard.finance.add') }} 
                 </a>
             </li>

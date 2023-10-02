@@ -1,12 +1,6 @@
 <?php
 
 return [
-    'category_names' => [
-        'Insurance' => 'Verzekering',
-        'Rent' => 'Huur',
-        'social' => 'Sociaal',
-        // ...
-    ],
     'finance' => [
         'dashboard' => 'Financieel Overzicht',
         'monthly_summary' => 'Maandelijks Overzicht',
@@ -34,6 +28,8 @@ return [
         'delete_text' => 'Weet u zeker dat u dit item wilt verwijderen? Deze actie kan niet teruggedraaid worden!',
         'confirm' => 'Doorgaan',
         'cancel' => 'Annuleren',
+        'amount' => 'Bedrag',
+        'category' => 'Categorie',
     ],
 ];
 

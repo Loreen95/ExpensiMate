@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cost;
 use App\Models\Category;
-use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 
 class FinanceController extends Controller
@@ -82,6 +80,7 @@ class FinanceController extends Controller
             'category_id' => 'required|integer',
             'cost' => 'required|numeric',
             'description' => 'nullable|string|max:255',
+            'due_date' => 'required|date',
         ]);
 
         // Find the expense by its ID
@@ -96,6 +95,7 @@ class FinanceController extends Controller
         $expense->category_id = $validatedData['category_id'];
         $expense->cost = $validatedData['cost'];
         $expense->description = $validatedData['description'];
+        $expense->due_date = $validatedData['due_date'];
 
         // Save the updated expense
         $expense->save();
@@ -103,37 +103,42 @@ class FinanceController extends Controller
         return redirect()->route('finance.edit', ['id' => $expense->id])->with('success', 'Expense updated successfully');
     }
 
-    public function add(Request $request)
+    public function addCost(Request $request)
     {
         // Validate the incoming request data
         $validatedData = $request->validate([
-            'category_id' => 'required|integer',
             'cost' => 'required|numeric',
             'description' => 'nullable|string|max:255',
+            'expense_type' => 'required|in:fixed,variable',
             'due_date' => 'required|date',
-            'expense_type' => 'required|in:fixed,variable', // Validate the expense_type
+            'category_id' => 'required|integer',
         ]);
 
-        // Create a new expense record and fill it with validated data
-        $expense = Cost::create($validatedData);
+        // Create a new cost record
+        $cost = new Cost();
+        $cost->cost = $validatedData['cost'];
+        $cost->description = $validatedData['description'];
+        $cost->expense_type = $validatedData['expense_type'];
+        $cost->due_date = $validatedData['due_date'];
+        $cost->category_id = $validatedData['category_id'];
+        // Save the cost to the database
+        $cost->save();
 
         // Redirect back to the page with a success message or handle it as needed
         return redirect()->back()->with('success', 'Expense added successfully');
     }
-
-
     
     public function showAddForm()
     {
         $categories = Category::all(); // Assuming you have a "Category" model
 
-        // Retrieve distinct expense types from the "costs" table
-        $expenseTypes = Cost::distinct('expense_type')->pluck('expense_type')->flatten()->unique();
-
-        return view('finance.add', compact('categories', 'expenseTypes'));
+        return view('finance.cost_add', compact('categories'));
     }
 
-    
+    public function showAddCategoryForm()
+    {
+        return view('finance.category_add');
+    }
 
     public function addCategory(Request $request)
     {

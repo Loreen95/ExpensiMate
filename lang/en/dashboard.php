@@ -30,5 +30,7 @@ return [
         'delete_text' => 'Are you sure you wish to delete this item? This cannot be undone!',
         'confirm' => 'Confirm',
         'cancel' => 'Cancel',
+        'amount' => 'Amount',
+        'category' => 'Category',
     ],
 ];

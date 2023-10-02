@@ -1,17 +1,16 @@
 @extends('layout')
 
 @section('content')
-<form action="{{ route('finance.add') }}" method="POST">
+<form action="{{ route('finance.cost_add') }}" method="POST">
     @csrf
     <!-- Category Select -->
     <div class="mb-4">
         <label for="category_id" class="block text-sm font-medium text-gray-700">Category</label>
-        <select class="w-48">
+        <select name="category_id" id="category_id" class="w-48" required>
             @foreach ($categories as $category)
-                <option value="{{ $category->id }}"> {{ $category->category_name }}
-                </option>
+                <option value="{{ $category->id }}"> {{ $category->category_name }}</option>
             @endforeach
-        </select>        
+        </select>
     </div>
 
     {{-- Type of expense --}}
@@ -23,7 +22,6 @@
         </select>
     </div>
     
-
     <!-- Cost -->
     <div class="mb-4">
         <label for="cost" class="block text-sm font-medium text-gray-700">Cost</label>

@@ -12,6 +12,14 @@ class Cost extends Model
     // Define the table associated with this model
     protected $table = 'costs';
 
+    protected $fillable = [
+        'cost',
+        'description',
+        'expense_type',
+        'due_date',
+        'category_id',
+    ];
+        
     // Define relationships (if any) with other models
     // For example, if you want to associate costs with categories
     public function category()
