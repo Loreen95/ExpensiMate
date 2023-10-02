@@ -2,7 +2,8 @@
 
 return [
     'finance' => [
-        'dashboard' => 'Finance Dashboard',
+        'dashboard' => 'Dashboard',
+        'finandashboard' => 'Finance Dashboard',
         'monthly_summary' => 'Monthly Summary',
         'fixed_expenses' => 'Fixed Expenses',
         'variable_expenses' => 'Variable Expenses',

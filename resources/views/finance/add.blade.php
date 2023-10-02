@@ -3,26 +3,26 @@
 @section('content')
 <form action="{{ route('finance.add') }}" method="POST">
     @csrf
-
     <!-- Category Select -->
     <div class="mb-4">
         <label for="category_id" class="block text-sm font-medium text-gray-700">Category</label>
-        <select name="category_id" id="category_id" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+        <select class="w-48">
             @foreach ($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                <option value="{{ $category->id }}"> {{ $category->category_name }}
+                </option>
             @endforeach
-        </select>
+        </select>        
     </div>
 
     {{-- Type of expense --}}
     <div class="mb-4">
         <label for="expense_type" class="block text-sm font-medium text-gray-700">Expense Type</label>
         <select name="expense_type" id="expense_type" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-            @foreach ($expenseTypes as $expenseType)
-                <option value="{{ $expenseType }}">{{ ucfirst($expenseType) }}</option>
-            @endforeach
+            <option value="fixed">Vast</option>
+            <option value="variable">Variabel</option>
         </select>
     </div>
+    
 
     <!-- Cost -->
     <div class="mb-4">

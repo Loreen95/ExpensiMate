@@ -20,7 +20,6 @@ return new class extends Migration
             $table->date('due_date');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
-
         });
     }
 

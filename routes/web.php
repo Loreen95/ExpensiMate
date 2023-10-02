@@ -35,7 +35,6 @@ Route::get('/financeboard', [FinanceController::class, 'dashboard'])->name('fina
 Route::get('/finance/edit/{id}', [FinanceController::class, 'edit'])->name('finance.edit');
 Route::put('/finance/edit/{id}', [FinanceController::class, 'update'])->name('finance.update');
 
-
 Route::get('/finance/add', [FinanceController::class, 'showAddForm'])->name('finance.add');
 Route::post('/finance/add', [FinanceController::class, 'add'])->name('finance.add.post');
 

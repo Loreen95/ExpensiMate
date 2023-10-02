@@ -26,6 +26,5 @@ class Cost extends Model
 
         return view('finance.dashboard', ['fixedExpenses' => $fixedExpenses]);
     }
-
 }
 

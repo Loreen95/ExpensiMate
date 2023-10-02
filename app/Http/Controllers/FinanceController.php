@@ -105,40 +105,35 @@ class FinanceController extends Controller
 
     public function add(Request $request)
     {
-        // Validate the incoming request data, adjust the rules as needed
+        // Validate the incoming request data
         $validatedData = $request->validate([
             'category_id' => 'required|integer',
             'cost' => 'required|numeric',
             'description' => 'nullable|string|max:255',
             'due_date' => 'required|date',
+            'expense_type' => 'required|in:fixed,variable', // Validate the expense_type
         ]);
 
-        // Create a new expense record
-        $expense = new Cost();
-        $expense->category_id = $validatedData['category_id'];
-        $expense->cost = $validatedData['cost'];
-        $expense->description = $validatedData['description'];
-        $expense->due_date = $validatedData['due_date'];
-        $expense->save();
+        // Create a new expense record and fill it with validated data
+        $expense = Cost::create($validatedData);
 
         // Redirect back to the page with a success message or handle it as needed
         return redirect()->back()->with('success', 'Expense added successfully');
     }
 
+
+    
     public function showAddForm()
     {
         $categories = Category::all(); // Assuming you have a "Category" model
 
         // Retrieve distinct expense types from the "costs" table
-        $expenseTypes = Cost::distinct('expense_type')->pluck('expense_type');
+        $expenseTypes = Cost::distinct('expense_type')->pluck('expense_type')->flatten()->unique();
 
         return view('finance.add', compact('categories', 'expenseTypes'));
     }
 
-    public function showAddCategoryForm()
-    {
-        return view('finance.category_add');
-    }
+    
 
     public function addCategory(Request $request)
     {
