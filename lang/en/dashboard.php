@@ -32,5 +32,6 @@ return [
         'cancel' => 'Cancel',
         'amount' => 'Amount',
         'category' => 'Category',
+        'expense_type' => 'Soort uitgave',
     ],
 ];
