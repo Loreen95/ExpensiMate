@@ -30,6 +30,7 @@ return [
         'cancel' => 'Annuleren',
         'amount' => 'Bedrag',
         'category' => 'Categorie',
+        'expense_type' => 'Soort uitgave',
     ],
 ];
 

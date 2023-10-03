@@ -1,12 +1,16 @@
-<?php return array (
-  'category_option' => ':categoryName',
-  'category_1' => 'Verzekering',
-  'category_2' => 'Huur',
-  'category_3' => 'Sociaal',
-  'category_4' => 'Abonnementen',
-  'category_5' => 'Boodschappen',
-  'category_6' => 'Uit eten',
-  'category_7' => 'Eten bestellen',
-);
-
-
+<?php return [
+    'category_option' => ':categoryName',
+    'category_1' => 'Sociaal',
+    'category_2' => 'Verzekering',
+    'category_3' => 'Huur',
+    'category_4' => 'test',
+    'category_5' => 'Abonnementen',
+    'cost_1' => 'Maandelijkse huur',
+    'cost_3' => 'Uit eten met vrienden',
+    'cost_4' => 'Neusspray',
+    'cost_5' => 'Drinken met vrienden',
+    'cost_6' => 'Licentie voor rekenen',
+    'cost_7' => 'Tosti voor paardrijden',
+    'cost_8' => 'test',
+    'cost_11' => 'Zuipen met Dion',
+];

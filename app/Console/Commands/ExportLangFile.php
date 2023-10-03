@@ -24,22 +24,25 @@ class ExportLangFile extends Command
         $categories = Category::all();
         $costs = Cost::all();
 
-        $langData = [];
+        $langDataEN = [];
+        $langDataNL = []; // Separate array for Dutch translation
 
         foreach ($categories as $category) {
-            $langData["category_{$category->id}"] = $category->category_name;
+            $langDataEN["category_{$category->id}"] = $category->category_name;
+            $langDataNL["category_{$category->id}"] = $category->category_name; // Assign the same value for Dutch
         }
 
         foreach ($costs as $cost) {
-            $langData["cost_{$cost->id}"] = $cost->description;
+            $langDataEN["cost_{$cost->id}"] = $cost->description;
+            $langDataNL["cost_{$cost->id}"] = $cost->description; // Assign the same value for Dutch
         }
 
-        $langFilePath = base_path('lang/en/sql_translations.php');
-        File::put($langFilePath, '<?php return ' . var_export($langData, true) . ';');
+        $langFilePathEN = base_path('lang/en/sql_translations.php');
+        File::put($langFilePathEN, '<?php return ' . var_export($langDataEN, true) . ';');
 
-        $langFilePath1 = base_path('lang/nl/sql_translations.php');
-        File::put($langFilePath, '<?php return ' . var_export($langData, true) . ';');
+        $langFilePathNL = base_path('lang/nl/sql_translations.php'); // Use a separate file for Dutch
+        File::put($langFilePathNL, '<?php return ' . var_export($langDataNL, true) . ';');
 
-        $this->info('Lang file has been exported.');
+        $this->info('Lang files have been exported.');
     }
 }

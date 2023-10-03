@@ -13,14 +13,19 @@
         </h2>
     </section>
     {{-- Fixed expenses-section  --}}
-    <div class="flex flex-col md:flex-row gap-6">
+    <div class="flex flex-col sm:flex-col md:flex-row gap-6">
         <div class="flex-1">
             <section class="bg-white p-2 shadow-md rounded-lg mt-6">
-                <h2 class="text-xl font-semibold mb-2">
-                    {{ trans('dashboard.finance.fixed_expenses') }}
-                </h2>
-                <div class="overflow-y-auto max-h-[400px] ml-2"> <!-- Set a fixed height and enable overflow-y for scrolling -->
-                    <div class="flex flex-wrap -mx-4 mr-1"> <!-- Increase padding to -mx-4 -->
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2 class="text-xl font-semibold mb-2 ml-2">
+                        {{ trans('dashboard.finance.fixed_expenses') }}
+                    </h2>
+                    <h3 class="text-xl font-semibold">
+                        {{ trans('dashboard.finance.total') . ': ' . trans('dashboard.finance.euro_sign') . ' ' . $totalCost }}
+                    </h3>
+                </div>
+                <div class="overflow-y-auto max-h-[400px] ml-2">
+                    <div class="flex flex-wrap -mx-4 mr-1">
                         @foreach($fixedExpenses as $expense)
                         <div class="w-full sm:w-1/4 md:w-1/4 lg:w-1/2 xl:w-1/3 px-4 mb-4"> <!-- Adjust width to xl:w-1/3 and increase padding to px-4 -->
                             <div class="bg-gray-100 p-4 rounded-lg shadow-md"> <!-- Increase padding to p-4 -->
@@ -61,15 +66,19 @@
     {{-- Variable expenses section --}}
         <div class="flex-1">
             <section class="bg-white p-2 shadow-md rounded-lg mt-6">
-                <h2 class="text-xl font-semibold mb-2">
-                        {{ trans('dashboard.finance.variable_expenses') }}
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2 class="text-xl font-semibold mb-2 ml-2">
+                        {{ trans('dashboard.finance.fixed_expenses') }}
                     </h2>
-                    <div class="overflow-y-auto max-h-[400px] ml-2"> <!-- Set a fixed height and enable overflow-y for scrolling -->
-                        <div class="flex flex-wrap -mx-4 mr-1"> 
+                    <h3 class="text-xl font-semibold">
+                        {{ trans('dashboard.finance.total') . ': ' . trans('dashboard.finance.euro_sign') . ' ' . $totalVariable }}
+                    </h3>
+                </div>
+                <div class="overflow-y-auto max-h-[400px] ml-2">
+                    <div class="flex flex-wrap -mx-4 mr-1"> 
                         @foreach($variableExpenses as $expense)
-                        <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3 px-4 mb-4"> <!-- Adjust width to xl:w-1/3 and increase padding to px-4 -->
-                            <div class="bg-gray-100 p-4 rounded-lg shadow-md"> <!-- Increase padding to p-4 -->
-                                <!-- Card content based on $item -->
+                        <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3 px-4 mb-4">
+                            <div class="bg-gray-100 p-4 rounded-lg shadow-md">
                                 <h3 class="text-lg font-semibold">
                                     {{ $expense->category->category_name }}
                                 </h3>
@@ -103,13 +112,13 @@
         </div>
 
         <section class="bg-white p-6 shadow-md rounded-lg mt-6">
-            <h2 class="text-xl font-semibold mb-2">
-                {{ trans('dashboard.finance.upcoming') }}
-            </h2>
-            <div class="flex flex-wrap -mx-1">
-                @foreach($upcomingExpenses as $expense)
-                <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/4 px-1 mb-4">
-                    <div class="bg-gray-100 p-2 rounded-lg shadow-md relative">
+        <h2 class="text-xl font-semibold mb-2">
+            {{ trans('dashboard.finance.upcoming') }}
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            @foreach($upcomingExpenses as $expense)
+            <div class="w-full px-1 mb-4">
+                <div class="bg-gray-100 p-2 rounded-lg shadow-md relative">
                         <span class="text-xs text-black absolute top-0 right-0 mt-4 mr-2 font-semibold">
                             {{ trans('dashboard.finance.due') }}: {{ $expense->formatted_due_date }}
                         </span>
