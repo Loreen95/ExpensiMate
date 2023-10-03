@@ -11,7 +11,7 @@
         <select name="category_id" id="category_id" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm">
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}" {{ $category->id == $expense->category_id ? 'selected' : '' }}>
-                    {{ (trans('')) }}
+                    {{ $expense->category->category_name }}
                 </option>
             @endforeach
         </select>

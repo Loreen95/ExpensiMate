@@ -176,4 +176,48 @@ class FinanceController extends Controller
         // Redirect back to the page with a success message or handle it as needed
         return redirect()->route('finance.dashboard')->with('success', 'Expense removed successfully');
     }
+
+    public function generateMonthlyExpensesChart()
+    {
+        // Retrieve the total costs per month from the database
+        $monthlyCosts = DB::table('costs')
+            ->select(DB::raw('MONTH(due_date) as month'), DB::raw('SUM(cost) as total_cost'), 'expense_type')
+            ->groupBy(DB::raw('MONTH(due_date)'), 'expense_type')
+            ->orderBy(DB::raw('MONTH(due_date)'))
+            ->get();
+
+        // Initialize arrays for labels and data
+        $labels = [];
+        $data = [];
+
+        // Loop through each month to populate labels and data arrays
+        for ($month = 1; $month <= 12; $month++) {
+            $monthName = trans("months." . strtolower(date('F', mktime(0, 0, 0, $month, 1))));
+            $labels[] = $monthName;
+
+            // Initialize variables for fixed and variable costs
+            $fixedCost = 0;
+            $variableCost = 0;
+
+            // Loop through the retrieved data to calculate costs for each month
+            foreach ($monthlyCosts as $cost) {
+                if ($cost->month == $month) {
+                    if ($cost->expense_type === 'fixed') {
+                        $fixedCost = $cost->total_cost;
+                    } elseif ($cost->expense_type === 'variable') {
+                        $variableCost = $cost->total_cost;
+                    }
+                }
+            }
+
+            // Push the calculated costs to the data array
+            $data[] = [
+                'fixed' => $fixedCost,
+                'variable' => $variableCost,
+            ];
+        }
+
+        return view('finance/graph', compact('labels', 'data'));
+    }
+
 }

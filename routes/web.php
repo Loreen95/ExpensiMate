@@ -43,6 +43,8 @@ Route::post('/finance/category/add', [FinanceController::class, 'addCategory'])-
 
 Route::delete('/finance/remove/{id}', [FinanceController::class, 'remove'])->name('finance.remove');
 
+Route::get('/finance/graph', [FinanceController::class, 'generateMonthlyExpensesChart'])->name('finance.graph');
+
 Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
 
 

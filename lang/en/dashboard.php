@@ -33,5 +33,6 @@ return [
         'amount' => 'Amount',
         'category' => 'Category',
         'expense_type' => 'Soort uitgave',
-    ],
+        'graph' => 'Graph',
+    ]
 ];

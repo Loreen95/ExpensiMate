@@ -68,7 +68,7 @@
             <section class="bg-white p-2 shadow-md rounded-lg mt-6">
             <div style="display: flex; justify-content: space-between; align-items: center;">
                     <h2 class="text-xl font-semibold mb-2 ml-2">
-                        {{ trans('dashboard.finance.fixed_expenses') }}
+                        {{ trans('dashboard.finance.variable_expenses') }}
                     </h2>
                     <h3 class="text-xl font-semibold">
                         {{ trans('dashboard.finance.total') . ': ' . trans('dashboard.finance.euro_sign') . ' ' . $totalVariable }}
@@ -119,10 +119,10 @@
             @foreach($upcomingExpenses as $expense)
             <div class="w-full px-1 mb-4">
                 <div class="bg-gray-100 p-2 rounded-lg shadow-md relative">
-                        <span class="text-xs text-black absolute top-0 right-0 mt-4 mr-2 font-semibold">
+                        <span class="text-xs text-black absolute top-0 right-0 mt-2.5 mr-2 font-semibold">
                             {{ trans('dashboard.finance.due') }}: {{ $expense->formatted_due_date }}
                         </span>
-                        <h3 class="text-lg font-semibold">
+                        <h3 class="text-sm font-semibold">
                             {{ $expense->category->category_name }}
                         </h3>
                         <span class="text-gray-600">
