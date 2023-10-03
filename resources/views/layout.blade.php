@@ -13,7 +13,7 @@
         @include('cookie-consent::index')
     </div>
     
-    <header class="h-15 bg-blue" id="mainHeader">
+    <header class="h-15 bg-oxford" id="mainHeader">
         @include('layout.header')
     </header>
     @auth

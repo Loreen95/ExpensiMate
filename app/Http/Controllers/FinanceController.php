@@ -100,7 +100,7 @@ class FinanceController extends Controller
         // Save the updated expense
         $expense->save();
 
-        return redirect()->route('finance.edit', ['id' => $expense->id])->with('success', 'Expense updated successfully');
+        return redirect()->route('finance.dashboard')->with('success', 'Expense updated successfully');
     }
 
     public function addCost(Request $request)
@@ -125,7 +125,7 @@ class FinanceController extends Controller
         $cost->save();
 
         // Redirect back to the page with a success message or handle it as needed
-        return redirect()->back()->with('success', 'Expense added successfully');
+        return redirect()->route('finance.dashboard')->with('success', 'Expense added successfully');
     }
     
     public function showAddForm()
@@ -157,7 +157,7 @@ class FinanceController extends Controller
         // Save the category
         $category->save();
 
-        return redirect()->back()->with('success', 'Category added successfully');
+        return redirect()->route('finance.dashboard')->with('success', 'Category added successfully');
     }
 
     public function remove(Request $request, $id)
@@ -174,6 +174,6 @@ class FinanceController extends Controller
         $expense->delete();
 
         // Redirect back to the page with a success message or handle it as needed
-        return redirect()->back()->with('success', 'Expense removed successfully');
+        return redirect()->route('finance.dashboard')->with('success', 'Expense removed successfully');
     }
 }
