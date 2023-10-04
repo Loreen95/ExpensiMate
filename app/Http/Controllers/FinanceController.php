@@ -182,7 +182,7 @@ class FinanceController extends Controller
                 'data' => $categoryData,
                 'backgroundColor' => $randomColor,
                 'borderColor' => preg_replace('/[^,\d]/', '', $randomColor) . ', 1)', // Matching border color with 100% solid opacity
-                'borderWidth' => 1,
+                'borderWidth' => 2,
             ];
         }
         return view('finance.graph', compact('labels', 'datasets'));
