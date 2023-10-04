@@ -3,84 +3,63 @@
 @section('content')
 <div class="chart-container py-12 w-9/12">
     <h2></h2>
-    <canvas id="myChart"></canvas>
+    <canvas id="myChart" class="bg-white"></canvas>
 </div>
 <script>
-    var label = @json(trans('dashboard.finance.total'));
     var ctx = document.getElementById('myChart').getContext('2d');
-    var data = @json($data);
-    var euroSign = @json(trans('dashboard.finance.euro_sign'));
-
-    var totalCombined = data.map(function (item) {
-        return item.fixed + item.variable;
-    });
-    var totalFixed = data.map(function (item) {
-        return item.fixed;
-    });
-    var totalVariable = data.map(function (item) {
-        return item.variable;
-    });
+    var datasets = @json($datasets);
 
     var myChart = new Chart(ctx, {
-        type: 'bar', // Choose chart type (bar)
+        type: 'bar',
         data: {
             labels: @json($labels),
-            datasets: [
-                {
-                    label: @json(trans('dashboard.finance.fixed_expenses')),
-                    data: totalFixed,
-                    backgroundColor: 'blue', // Blue for total fixed costs
-                    borderColor: 'black', // Change border color to blue
-                    borderWidth: 1,
-                    stack: 'expenses',
-                },
-                {
-                    label: @json(trans('dashboard.finance.variable_expenses')),
-                    data: totalVariable,
-                    backgroundColor: 'red', // Red for total variable costs
-                    borderColor: 'black', // Change border color to red
-                    borderWidth: 1,
-                    stack: 'expenses',
-                }
-            ]
+            datasets: datasets,
         },
         options: {
             scales: {
                 y: {
                     beginAtZero: true,
-                    stacked: true, // Enable stacking on the y-axis
+                    stacked: true,
                 },
                 x: {
-                    stacked: true, // Enable stacking on the x-axis
+                    stacked: true,
                 }
             },
             plugins: {
                 legend: {
-                    display: false // Hide legend
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: 'black' // Set font color of x-axis labels
-                    }
-                },
-                y: {
-                    ticks: {
-                        color: 'black' // Set font color of y-axis labels
-                    }
-                }
-            },
-            plugins: {
-                legend: {
+                    display: true,
                     labels: {
-                        color: 'black' // Set legend label text color to black
-                    }
-                }
-            }
-        }
+                        color: 'black',
+                    },
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            var label = context.dataset.label || '';
+                            var euroSign = '€';
+                            var value = context.parsed.y || 0;
+                            return label + ': ' + euroSign + ' ' + value.toFixed(2);
+                        },
+                    },
+                },
+            },
+        },
     });
 
+    // Function to generate random colors with less opacity
+    function getRandomColor() {
+        var alpha = 1; // Adjust the alpha channel value (0.5 for 50% opacity)
+        var r = Math.floor(Math.random() * 256);
+        var g = Math.floor(Math.random() * 256);
+        var b = Math.floor(Math.random() * 256);
+        return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+    }
+
+    // Apply the random colors with less opacity to dataset backgrounds
+    datasets.forEach(function(dataset) {
+        dataset.backgroundColor = getRandomColor();
+    });
 </script>
+
 
 @endsection

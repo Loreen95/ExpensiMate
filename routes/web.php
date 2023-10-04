@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/financeboard', [FinanceController::class, 'dashboard'])->name('finance.dashboard');
+Route::get('/financeboard', [FinanceController::class, 'index'])->name('finance.index');
 
 Route::get('/finance/edit/{id}', [FinanceController::class, 'edit'])->name('finance.edit');
 Route::put('/finance/edit/{id}', [FinanceController::class, 'update'])->name('finance.update');
