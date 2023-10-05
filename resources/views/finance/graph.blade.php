@@ -8,6 +8,33 @@
 <script>
     var ctx = document.getElementById('myChart').getContext('2d');
     var datasets = @json($datasets);
+    // Define an array of predefined background colors
+    var backgroundColors = [
+    'red',   // Red
+    'orange',  // Blue
+    'yellow',  // Yellow
+    'green', // Green
+    'cyan',  // Cyan
+    'blue', // Blue 
+    'pink', // Pink 
+    'violet', // Violet
+    'purple', // Purple
+    'Gold', // Gold
+    'Silver', // Silver
+    ];
+
+    // Initialize an index to cycle through the colors
+    var colorIndex = 0;
+
+    // Loop through datasets and assign background colors and black borders
+    datasets.forEach(function(dataset) {
+    dataset.backgroundColor = backgroundColors[colorIndex];
+    dataset.borderColor = 'rgba(0, 0, 0, 1)'; // Solid black border color
+    colorIndex = (colorIndex + 1) % backgroundColors.length; // Cycle through colors
+    });
+
+
+    // Rest of your Chart.js code remains the same
 
     var myChart = new Chart(ctx, {
         type: 'bar',
@@ -45,20 +72,7 @@
             },
         },
     });
-
-    // Function to generate random colors with less opacity
-    function getRandomColor() {
-        var alpha = 1; // Adjust the alpha channel value (0.5 for 50% opacity)
-        var r = Math.floor(Math.random() * 256);
-        var g = Math.floor(Math.random() * 256);
-        var b = Math.floor(Math.random() * 256);
-        return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
-    }
-
-    // Apply the random colors with less opacity to dataset backgrounds
-    datasets.forEach(function(dataset) {
-        dataset.backgroundColor = getRandomColor();
-    });
 </script>
+
 
 @endsection

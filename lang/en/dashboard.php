@@ -32,7 +32,15 @@ return [
         'cancel' => 'Cancel',
         'amount' => 'Amount',
         'category' => 'Category',
-        'expense_type' => 'Soort uitgave',
+        'expense_type' => 'Expense type',
         'graph' => 'Graph',
+        'fixed' => 'Fixed',
+        'variable' => 'Variable',
+        'paid' => 'Paid',
+        'paid1' => 'Paid',
+        'not_paid' => 'Not paid',
+        'bills' => 'bills',
+        'status' => 'Status',
+        'paydate' => 'Paid on',
     ]
 ];

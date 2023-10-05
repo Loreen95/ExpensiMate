@@ -30,20 +30,28 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/financeboard', [FinanceController::class, 'index'])->name('finance.index');
+Route::middleware('auth')->group(function () {
+    Route::get('/financeboard', [FinanceController::class, 'index'])->name('finance.index');
+    
+    Route::get('/finance/edit/{id}', [FinanceController::class, 'edit'])->name('finance.edit');
+    Route::put('/finance/edit/{id}', [FinanceController::class, 'update'])->name('finance.update');
+    
+    Route::get('/finance/cost_add', [FinanceController::class, 'showAddForm'])->name('finance.cost_add');
+    Route::post('/finance/cost_add', [FinanceController::class, 'addCost'])->name('finance.cost_add.post');
 
-Route::get('/finance/edit/{id}', [FinanceController::class, 'edit'])->name('finance.edit');
-Route::put('/finance/edit/{id}', [FinanceController::class, 'update'])->name('finance.update');
+    Route::get('/finance/category/add', [FinanceController::class, 'showAddCategoryForm'])->name('finance.category_add');
+    Route::post('/finance/category/add', [FinanceController::class, 'addCategory'])->name('finance.category_add.post');
 
-Route::get('/finance/cost_add', [FinanceController::class, 'showAddForm'])->name('finance.cost_add');
-Route::post('/finance/cost_add', [FinanceController::class, 'addCost'])->name('finance.cost_add.post');
+    Route::delete('/finance/remove/{id}', [FinanceController::class, 'remove'])->name('finance.remove');
 
-Route::get('/finance/category/add', [FinanceController::class, 'showAddCategoryForm'])->name('finance.category_add');
-Route::post('/finance/category/add', [FinanceController::class, 'addCategory'])->name('finance.category_add.post');
+    Route::get('/finance/graph', [FinanceController::class, 'generateMonthlyExpensesChart'])->name('finance.graph');
 
-Route::delete('/finance/remove/{id}', [FinanceController::class, 'remove'])->name('finance.remove');
+    Route::put('/finance/markAsPaid/{id}', [FinanceController::class, 'markAsPaid'])->name('finance.markAsPaid');
+    Route::put('/finance/markAsNotPaid/{id}', [FinanceController::class, 'markAsNotPaid'])->name('finance.markAsNotPaid');
 
-Route::get('/finance/graph', [FinanceController::class, 'generateMonthlyExpensesChart'])->name('finance.graph');
+    Route::get('/finance/paid-bills', [FinanceController::class, 'getPaidBills'])->name('finance.paid-bills');
+
+});
 
 Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
 

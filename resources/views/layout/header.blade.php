@@ -35,15 +35,15 @@
             <button class="flex items-center focus:outline-none mt-1 lang-dropdown-button">
                 <span class="fi fi-gb" id="flag-icon"></span>
             </button>
-            <div class="absolute hidden mt-8 w-7 bg-white lang-dropdown-menu" style="left: -1.2px;">
+            <div class="absolute hidden mt-8 w-8 bg-white lang-dropdown-menu" style="left: -1.2px;">
                 <ul class="flex flex-col items-center"> <!-- Center the flag icon vertically -->
                     <li>
-                        <a href="{{ route('lang.switch', 'en') }}" class="block py-2 ml-1 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white">
+                        <a href="{{ route('lang.switch', 'en') }}" class="block py-2 m-0.5 pl-2 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white">
                             <span class="fi fi-gb" id="flag-en"></span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('lang.switch', 'nl') }}" class="block py-2 ml-1 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white">
+                        <a href="{{ route('lang.switch', 'nl') }}" class="block py-2 m-0.5 pl-2 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white">
                             <span class="fi fi-nl" id="flag-nl"></span>
                         </a>
                     </li>

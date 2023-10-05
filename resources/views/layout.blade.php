@@ -19,9 +19,9 @@
         @include('layout.header')
     </header>
 
-    @auth
-        @include('finance.navbar') 
-    @endauth
+    @if(auth()->check() && request()->route()->getName() && strpos(request()->route()->getName(), 'finance.') === 0)
+        @include('finance.navbar')
+    @endif
 
     <main class="flex-1">
         <div class="flex justify-center items-center" id="content">

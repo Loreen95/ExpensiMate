@@ -14,7 +14,7 @@
                     {{ trans('sql_translations.category_option', ['categoryName' => $category->category_name]) }}
                 </option>
             @endforeach
-        </select>
+        </select>        
     </div>
 
     {{-- Type of expense --}}
@@ -23,8 +23,8 @@
             {{ trans('dashboard.finance.expense_type') }}
         </label>
         <select name="expense_type" id="expense_type" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-            <option value="fixed">Vast</option>
-            <option value="variable">Variabel</option>
+            <option value="fixed">{{ trans('dashboard.finance.fixed') }}</option>
+            <option value="variable">{{ trans('dashboard.finance.variable') }}</option>
         </select>
     </div>
     
@@ -33,7 +33,7 @@
         <label for="cost" class="block text-sm font-medium text-gray-700">
             {{ trans('dashboard.finance.amount') }}
         </label>
-        <input type="number" name="cost" id="cost" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm" required>
+        <input type="number" step="0.01" name="cost" id="cost" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm" required>
     </div>
 
     <!-- Description -->
@@ -54,7 +54,7 @@
 
     <!-- Submit Button -->
     <div class="mb-4">
-        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
+        <button type="submit" class="px-4 py-2 w-full text-sm font-medium text-white bg-green-600 rounded-md hover:bg-blue-600">
             Add Expense
         </button>
     </div>

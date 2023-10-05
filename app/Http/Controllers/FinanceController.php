@@ -21,16 +21,30 @@ class FinanceController extends Controller
 
     public function index()
     {
-        // Haal dashboardData op uit FinanceService
-        $dashboardData = $this->financeService->getDashboardData();
+        $user = auth()->user();
+
+        // Haal dashboardData op uit FinanceService, passing the user ID
+        $dashboardData = $this->financeService->getDashboardData($user);
 
         return view('finance.dashboard', [
-            'fixedExpenses' => $this->financeService->getFixedExpenses(),
-            'variableExpenses' => $this->financeService->getVariableExpenses(),
-            'upcomingExpenses' => $this->financeService->getUpcomingExpenses(),
-            'totalCost' => $this->financeService->getTotalCost(),
-            'totalVariable' => $this->financeService->getTotalVariable(),
+            'fixedExpenses' => $this->financeService->getFixedExpenses($user),
+            'variableExpenses' => $this->financeService->getVariableExpenses($user),
+            'upcomingExpenses' => $this->financeService->getUpcomingExpenses($user),
+            'totalCost' => $this->financeService->getTotalCost($user),
+            'totalVariable' => $this->financeService->getTotalVariable($user),
         ]);
+    }
+    
+    public function showAddForm()
+    {
+        $categories = $this->financeService->showAddForm();
+        
+        return view('finance.cost_add', compact('categories'));
+    }
+
+    public function showAddCategoryForm()
+    {
+        return view('finance.category_add');
     }
 
     public function edit($id)
@@ -65,7 +79,7 @@ class FinanceController extends Controller
     {
         // Voeg nieuwe gegevens toe
         $validatedData = $request->validate([
-            'cost' => 'required|numeric',
+            'cost' => 'required|numeric|between:0,999999.99',
             'description' => 'nullable|string|max:255',
             'expense_type' => 'required|in:fixed,variable',
             'due_date' => 'required|date',
@@ -79,19 +93,6 @@ class FinanceController extends Controller
         return redirect()->route('finance.index')->with('success', 'Expense added successfully');
     }
 
-    
-    public function showAddForm()
-    {
-        $categories = Category::all(); // Assuming you have a "Category" model
-
-        return view('finance.cost_add', compact('categories'));
-    }
-
-    public function showAddCategoryForm()
-    {
-        return view('finance.category_add');
-    }
-
     public function addCategory(Request $request)
     {
         // Validate the incoming request data
@@ -99,20 +100,44 @@ class FinanceController extends Controller
             'category_name' => 'required|string|max:255',
         ]);
 
-        // Create a new category instance
-        $category = new Category();
-        $category->category_name = $validatedData['category_name'];
-
-        // Associate the currently authenticated user with the category
-        $category->user_id = Auth::id(); // Using the auth() helper
-
-        // Save the category
-        $category->save();
+        $newCategory = $this->financeService->addCategory($validatedData);
 
         return redirect()->route('finance.index')->with('success', 'Category added successfully');
     }
 
     public function remove(Request $request, $id)
+    {
+        $result = $this->financeService->removeExpense($id);
+
+        if (!$result) {
+            abort(404); // or handle the not found case in your way
+        }
+
+        // Redirect back to the page with a success message or handle it as needed
+        return redirect()->route('finance.index')->with('success', 'Expense removed successfully');
+    }
+    
+    public function generateMonthlyExpensesChart()
+    {
+        $chartData = $this->financeService->generateMonthlyExpensesChart();
+
+        return view('finance.graph', $chartData);
+    }
+
+    public function markAsPaid($id)
+    {
+        $expense = Cost::find($id);
+
+        if (!$expense) {
+            abort(404); // Handle not found case as needed
+        }
+
+        $expense->update(['paid' => true]);
+
+        // Redirect back to the page with a success message or handle it as needed
+        return redirect()->route('finance.index')->with('success', 'Expense marked as paid successfully');
+    }
+    public function markAsNotPaid($id)
     {
         // Find the expense by ID
         $expense = Cost::find($id);
@@ -122,101 +147,17 @@ class FinanceController extends Controller
             abort(404); // or handle the not found case in your way
         }
 
-        // Delete the expense
-        $expense->delete();
+        // Set the expense as "Not Paid"
+        $expense->paid = false;
+        $expense->save();
 
         // Redirect back to the page with a success message or handle it as needed
-        return redirect()->route('finance.index')->with('success', 'Expense removed successfully');
+        return redirect()->route('finance.index')->with('success', 'Expense marked as Not Paid successfully');
     }
-    
-    public function generateMonthlyExpensesChart()
-    {
-        // Retrieve the total costs per month and category from the database, joining with the categories table
-        $monthlyCosts = DB::table('costs')
-            ->join('categories', 'costs.category_id', '=', 'categories.id')
-            ->select(
-                DB::raw('MONTH(costs.due_date) as month'),
-                DB::raw('SUM(costs.cost) as total_cost'),
-                'costs.expense_type',
-                'category_name as category'
-            )
-            ->groupBy(DB::raw('MONTH(costs.due_date)'), 'costs.expense_type', 'category_name')
-            ->orderBy(DB::raw('MONTH(costs.due_date)'))
-            ->get();
-    
-        // Initialize arrays for labels and datasets
-        $labels = [];
-        $datasets = [];
-    
-        // Get unique categories
-        $categories = $monthlyCosts->pluck('category')->unique();
-    
-        // Loop through each month to populate labels
-        for ($month = 1; $month <= 12; $month++) {
-            $monthName = trans("months." . strtolower(date('F', mktime(0, 0, 0, $month, 1))));
-            $labels[] = $monthName;
-        }
-        
-        $usedColors = []; // Initialize an array to keep track of used colors
 
-        // Loop through unique categories to create datasets
-        foreach ($categories as $category) {
-            $categoryData = [];
-        
-            // Loop through each month
-            for ($month = 1; $month <= 12; $month++) {
-                $monthlyCost = $monthlyCosts->where('category', $category)->where('month', $month)->first();
-                $categoryData[] = $monthlyCost ? $monthlyCost->total_cost : 0;
-            }
-        
-            do {
-                // Generate a random color with 75% opacity for each category
-                $randomColor = 'rgba(' . rand(0, 255) . ',' . rand(0, 255) . ',' . rand(0, 255) . ', 0.75)';
-            } while (in_array($randomColor, $usedColors)); // Check if the color is already used
-        
-            $usedColors[] = $randomColor; // Add the generated color to the used colors array
-        
-            // Create a dataset for the category with the random background color and matching solid border color
-            $datasets[] = [
-                'label' => $category,
-                'data' => $categoryData,
-                'backgroundColor' => $randomColor,
-                'borderColor' => preg_replace('/[^,\d]/', '', $randomColor) . ', 1)', // Matching border color with 100% solid opacity
-                'borderWidth' => 2,
-            ];
-        }
-        return view('finance.graph', compact('labels', 'datasets'));
+    public function getPaidBills()
+    {
+        $paidExpenses = $this->financeService->getPaidBills();
+        return view('finance.paid-bills', compact('paidExpenses'));
     }
 }
-        // $usedColors = []; // Initialize an array to keep track of used colors
-
-        // // Loop through unique categories to create datasets
-        // foreach ($categories as $category) {
-        //     do {
-        //         // Generate a random color with 75% opacity for each category
-        //         $randomColor = 'rgba(' . rand(0, 255) . ',' . rand(0, 255) . ',' . rand(0, 255);
-        //     } while (in_array($randomColor, $usedColors)); // Check if the color is already used
-
-        //     $usedColors[] = $randomColor; // Add the generated color to the used colors array
-
-        //     $categoryData = [];
-
-        //     // Loop through each month
-        //     for ($month = 1; $month <= 12; $month++) {
-        //         $monthlyCost = $monthlyCosts->where('category', $category)->where('month', $month)->first();
-        //         $categoryData[] = $monthlyCost ? $monthlyCost->total_cost : 0;
-        //     }
-
-        //     // Create a dataset for the category with the random background color and matching solid border color
-        //     $datasets[] = [
-        //         'label' => $category,
-        //         'data' => $categoryData,
-        //         'backgroundColor' => $randomColor,
-        //         'borderColor' => preg_replace('/[^,\d]/', '', $randomColor) . ', 1)', // Matching border color with 100% solid opacity
-        //         'borderWidth' => 1,
-        //     ];
-        // }
-        // Pass the data to the view
-//         return view('finance.graph', compact('labels', 'datasets'));
-//     }
-// }

@@ -18,6 +18,7 @@ class Cost extends Model
         'expense_type',
         'due_date',
         'category_id',
+        'paid',
     ];
         
     // Define relationships (if any) with other models
@@ -25,6 +26,12 @@ class Cost extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    // In your Cost model, define the user relationship
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function showFixedExpenses()

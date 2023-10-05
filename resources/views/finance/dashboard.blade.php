@@ -111,31 +111,60 @@
             </div>
         </div>
 
-        <section class="bg-white p-6 shadow-md rounded-lg mt-6">
-        <h2 class="text-xl font-semibold mb-2">
-            {{ trans('dashboard.finance.upcoming') }}
-        </h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            @foreach($upcomingExpenses as $expense)
-            <div class="w-full px-1 mb-4">
-                <div class="bg-gray-100 p-2 rounded-lg shadow-md relative">
-                        <span class="text-xs text-black absolute top-0 right-0 mt-2.5 mr-2 font-semibold">
-                            {{ trans('dashboard.finance.due') }}: {{ $expense->formatted_due_date }}
-                        </span>
-                        <h3 class="text-sm font-semibold">
-                            {{ $expense->category->category_name }}
-                        </h3>
-                        <span class="text-gray-600">
-                            {{ trans('dashboard.finance.euro_sign') }} {{ $expense->cost }}
-                        </span>
-                        <p class="text-gray-500 mt-1 text-xs">
-                            {{ $expense->description }}
-                        </p>
+        <div class="flex-1">
+            <section class="bg-white p-2 shadow-md rounded-lg mt-6">
+            <h2 class="text-xl font-semibold mb-2 ml-2">
+                {{ trans('dashboard.finance.upcoming') }}
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                @foreach($upcomingExpenses as $expense)
+                <div class="w-full px-1 mb-4">
+                    <div class="bg-gray-100 p-2 rounded-lg shadow-md relative">
+                            <span class="text-xs text-black absolute top-0 right-0 mt-2.5 mr-2 font-semibold">
+                                {{ trans('dashboard.finance.due') }}: {{ $expense->formatted_due_date }}
+                            </span>
+                            <h3 class="text-sm font-semibold">
+                                {{ $expense->category->category_name }}
+                            </h3>
+                            <span class="text-gray-600">
+                                {{ trans('dashboard.finance.euro_sign') }} {{ $expense->cost }}
+                            </span>
+                            <p class="text-gray-500 mt-1 text-xs">
+                                {{ $expense->description }}
+                            </p>
+                            <td>
+                                <div class="mt-2 flex justify-between pr-1">
+                                    <span class="text-xs mt-2">
+                                        Status:&nbsp;
+                                        <span class="{{ $expense->paid ? 'text-green-600' : 'text-red-500' }}">
+                                            {{ $expense->paid ? trans('dashboard.finance.paid') : trans('dashboard.finance.not_paid') }}
+                                        </span>
+                                    </span>                                    
+                                    @if (!$expense->paid)
+                                        <form action="{{ route('finance.markAsPaid', $expense->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="py-1 text-xs w-full bg-green-500 text-white rounded-md hover:bg-green-600">
+                                                {{ trans('dashboard.finance.paid') }}
+                                            </button>
+                                        </form>
+                                    @else
+                                    <form action="{{ route('finance.markAsNotPaid', $expense->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="py-1 text-xs w-full bg-red-500 text-white rounded-md hover:bg-red-600">
+                                            {{ trans('dashboard.finance.not_paid') }}
+                                        </button>
+                                    </form>
+                                    @endif
+                                </div>
+                            </td>                        
+                        </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
 </div>
 

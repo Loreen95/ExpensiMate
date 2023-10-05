@@ -10,10 +10,16 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      */
-    protected function schedule(Schedule $schedule): void
+    protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // Run the UpdatePaidStatusCommand daily, for example, at midnight
+        $schedule->command('expenses:update-paid-status')->dailyAt('05:00');
     }
+
+    // REMINDER:
+    // Finally, you'll need to configure your server to run Laravel's scheduler at regular intervals. 
+    // This typically involves setting up a cron job to execute the schedule:run Artisan command. 
+    // You can find more details on how to set up Laravel's scheduler in the Laravel documentation.
 
     /**
      * Register the commands for the application.
@@ -25,3 +31,5 @@ class Kernel extends ConsoleKernel
         require base_path('routes/console.php');
     }
 }
+
+

@@ -12,7 +12,7 @@
 
     <!-- Submit Button -->
     <div class="mb-4">
-        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
+        <button type="submit" class="px-4 py-2 w-full text-sm font-medium text-white bg-green-600 rounded-md hover:bg-blue-600">
             Add Category
         </button>
     </div>

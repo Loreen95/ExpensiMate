@@ -32,6 +32,14 @@ return [
         'category' => 'Categorie',
         'expense_type' => 'Soort uitgave',
         'graph' => 'Grafiek',
+        'fixed' => 'Vast',
+        'variable' => 'Variabel',
+        'paid' => 'Betaald',
+        'not_paid' => 'Niet betaald',
+        'bills' => 'rekeningen',
+        'paid1' => 'Betaalde',
+        'status' => 'Status',
+        'paydate' => 'Betaald op',
     ]
 ];
 
