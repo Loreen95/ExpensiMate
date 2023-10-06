@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Cost;
 use App\Models\Category;
 use App\Services\FinanceService;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotificationMail;
 
 class FinanceController extends Controller
 {
@@ -159,5 +159,22 @@ class FinanceController extends Controller
     {
         $paidExpenses = $this->financeService->getPaidBills();
         return view('finance.paid-bills', compact('paidExpenses'));
+    }
+
+    public function sendTestEmail()
+    {
+        // Example logic to send the email with upcoming expenses
+        $emailContent = 'This is a test email content.';
+        $frequency = 'daily';
+        $upcomingExpenses = $this->financeService->getUpcomingExpenses();
+    
+        // Pass $upcomingExpenses when creating the Mailable instance
+        $mail = new NotificationMail($emailContent, $frequency, $upcomingExpenses);
+    
+        // Send the email
+        Mail::to('lisahakhoff@ziggo.nl')->send($mail);
+    
+        // Optionally, redirect or return a response to the user
+        return 'Test email sent successfully.';
     }
 }

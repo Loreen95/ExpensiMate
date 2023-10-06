@@ -13,7 +13,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex ">
                 <x-responsive-nav-link class="bg-silver" :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                    Dashboard
+                    {{ trans('dashboard.finance.dashboard') }}
                 </x-responsive-nav-link>
                 </div>
             </div>
@@ -35,7 +35,11 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('Account') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('notification.preferences')">
+                            {{ __('Notification Preferences') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -68,8 +72,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
         <x-responsive-nav-link class="bg-white" :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-            {{-- Dashboard --}}
-            {{ __("dashboard") }}
+        {{ trans('dashboard.finance.dashboard') }}
         </x-responsive-nav-link>
 
         </div>

@@ -3,7 +3,11 @@
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProfileController;
+use App\Services\FinanceService;
+use App\Http\Controllers\NotificationsController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotificationMail;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,9 +55,17 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/finance/paid-bills', [FinanceController::class, 'getPaidBills'])->name('finance.paid-bills');
 
+    // Display the notification preferences settings form
+    Route::get('/notification/preferences', [NotificationsController::class, 'index'])->name('notification.preferences');
+
+    // Handle form submissions to update notification preferences
+    Route::post('/notification/preferences', [NotificationsController::class, 'update'])->name('notification.preferences.update');
 });
+
+
 
 Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
 
+Route::get('/send-test-email', [FinanceController::class, 'sendTestEmail']);
 
 require __DIR__.'/auth.php';

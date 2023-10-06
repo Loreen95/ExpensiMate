@@ -7,14 +7,17 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-    /**
-     * Define the application's command schedule.
-     */
+    protected $commands = [
+        Commands\SendNotifications::class,
+    ];
+    
     protected function schedule(Schedule $schedule)
     {
-        // Run the UpdatePaidStatusCommand daily, for example, at midnight
-        $schedule->command('expenses:update-paid-status')->dailyAt('05:00');
+        // Schedule the 'send:notifications' command to run daily at 8:00 AM
+        $schedule->command('notifications:send')->dailyAt('08:00');
     }
+
+
 
     // REMINDER:
     // Finally, you'll need to configure your server to run Laravel's scheduler at regular intervals. 

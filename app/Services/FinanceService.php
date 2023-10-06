@@ -61,7 +61,6 @@ class FinanceService
         return $variableExpenses;
     }
 
-
     public function getUpcomingExpenses()
     {
         // Retrieve upcoming expenses for the currently authenticated user

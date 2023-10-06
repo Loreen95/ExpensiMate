@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Models\NotificationPreference;
 
 class RegisteredUserController extends Controller
 {
@@ -43,6 +44,15 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        // Create default notification preferences for the user
+        NotificationPreference::create([
+            'user_id' => $user->id,
+            'frequency' => 'daily', // Set the default frequency (or any other suitable default)
+            'advance_notice_days' => 0, // Set the default advance notice days
+            'is_active' => true, // Set the default status (active or inactive)
+            'notification_time' => '08:00:00', // Set the default notification time
+        ]);        
 
         event(new Registered($user));
 
