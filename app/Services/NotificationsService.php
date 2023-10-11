@@ -4,8 +4,7 @@ namespace App\Services;
 
 use App\Models\NotificationPreference;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\DailyNotificationMail;
-use App\Mail\WeeklyNotificationMail;
+use App\Mail\NotificationMail;
 use Illuminate\Support\Facades\Log;
 
 
@@ -13,19 +12,7 @@ class NotificationService
 {
     public function scheduleNotifications($user)
     {
-        // Retrieve the user's notification preferences
-        $notificationPreferences = NotificationPreference::where('user_id', $user->id)->first();
-
-        if ($notificationPreferences) {
-            // Check the user's notification frequency and send the corresponding email
-            if ($notificationPreferences->frequency === 'daily') {
-                // Send the daily notification email
-                $this->sendDailyNotification($user);
-            } elseif ($notificationPreferences->frequency === 'weekly') {
-                // Send the weekly notification email
-                $this->sendWeeklyNotification($user);
-            }
-        }
+        $this->sendNotifications($user);
     }
 
     public function sendNotifications($user)
@@ -33,30 +20,38 @@ class NotificationService
         $notificationPreferences = NotificationPreference::where('user_id', $user->id)->first();
 
         if ($notificationPreferences) {
-            if ($notificationPreferences->frequency === 'daily') {
-                $this->sendDailyNotification($user);
-            } elseif ($notificationPreferences->frequency === 'weekly') {
-                $this->sendWeeklyNotification($user);
+            $frequency = $notificationPreferences->frequency;
+            $emailContent = $this->getEmailContent($frequency);
+            $upcomingExpenses = $this->getUpcomingExpenses($user);
+
+            if ($emailContent && $upcomingExpenses) {
+                $this->sendNotificationEmail($user, $emailContent, $frequency, $upcomingExpenses);
             }
         }
     }
 
-
-    private function sendDailyNotification($user)
+    private function getEmailContent($frequency)
     {
-        // Customize the email content for daily notifications
-        $emailContent = 'Here are your daily notifications...';
+        if ($frequency === 'daily') {
+            return 'Here are your daily notifications...';
+        } elseif ($frequency === 'weekly') {
+            return 'Here are your weekly notifications...';
+        }
 
-        // Send the email
-        Mail::to($user->email)->send(new DailyNotificationMail($emailContent));
+        return null; // Handle other cases as needed
     }
 
-    private function sendWeeklyNotification($user)
+    private function getUpcomingExpenses($user)
     {
-        // Customize the email content for weekly notifications
-        $emailContent = 'Here are your weekly notifications...';
-
-        // Send the email
-        Mail::to($user->email)->send(new WeeklyNotificationMail($emailContent));
+        // Retrieve and return the upcoming expenses for the user
+        // You will need to implement the logic to fetch the expenses
+        // and format them as needed.
+        return null;
     }
+
+    private function sendNotificationEmail($user, $emailContent, $frequency, $upcomingExpenses)
+    {
+        Mail::to($user->email)->send(new NotificationMail($emailContent, $frequency, $upcomingExpenses));
+    }
+
 }

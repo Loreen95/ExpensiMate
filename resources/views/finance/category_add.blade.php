@@ -6,7 +6,9 @@
 
     <!-- Category Name -->
     <div class="mb-4">
-        <label for="category_name" class="block text-sm font-medium text-gray-700">Category Name</label>
+        <label for="category_name" class="block text-sm font-medium text-gray-700">
+            {{ trans('dashboard.finance.category') }}
+        </label>
         <input type="text" name="category_name" id="category_name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm" required>
     </div>
 

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cost;
 use App\Models\Category;
+use App\Models\NotificationPreference;
 use App\Services\FinanceService;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NotificationMail;
+use App\Models\User;
 
 class FinanceController extends Controller
 {
@@ -167,14 +169,23 @@ class FinanceController extends Controller
         $emailContent = 'This is a test email content.';
         $frequency = 'daily';
         $upcomingExpenses = $this->financeService->getUpcomingExpenses();
-    
-        // Pass $upcomingExpenses when creating the Mailable instance
-        $mail = new NotificationMail($emailContent, $frequency, $upcomingExpenses);
-    
+
+        // Pass $emailContent to the view as a data variable
+        $data = [
+            'emailContent' => $emailContent,
+            'frequency' => $frequency,
+            'upcomingExpenses' => $upcomingExpenses,
+        ];
+
+
+        // Create a Mailable instance using the custom view
+        $mail = new NotificationMail($data, $frequency, $upcomingExpenses);
+
         // Send the email
         Mail::to('lisahakhoff@ziggo.nl')->send($mail);
-    
+
         // Optionally, redirect or return a response to the user
-        return 'Test email sent successfully.';
+        // return 'Test email sent successfully.';
+        return view('notification.emails.notification', $data);
     }
 }

@@ -40,6 +40,8 @@ return [
         'paid1' => 'Betaalde',
         'status' => 'Status',
         'paydate' => 'Betaald op',
+        'no_bills_found' => 'Er zijn geen aankomende rekeningen gevonden',
+        'email_content' => 'Dit is een test email content.',
     ]
 ];
 
