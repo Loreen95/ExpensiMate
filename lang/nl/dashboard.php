@@ -39,7 +39,7 @@ return [
         'bills' => 'rekeningen',
         'paid1' => 'Betaalde',
         'status' => 'Status',
-        'paydate' => 'Betaald op',
+        'paydate' => 'Wordt betaald op',
         'no_bills_found' => 'Er zijn geen aankomende rekeningen gevonden',
         'email_content' => 'Dit is een test email content.',
     ]

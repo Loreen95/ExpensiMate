@@ -41,7 +41,7 @@ return [
         'not_paid' => 'Not paid',
         'bills' => 'bills',
         'status' => 'Status',
-        'paydate' => 'Paid on',
+        'paydate' => 'Gets paid on',
         'no_bills_found' => 'No upcoming bills have been found',
         'email_content' => 'This is a test email contend',
     ]

@@ -7,7 +7,7 @@
 <body>
     <div class="flex justify-center items-center relative overflow-x-auto">
         <header class="w-3/4 text-center text-silver uppercase bg-oxford dark:bg-oxford dark:text-silver">
-            <h1>{{ $frequency === 'daily' ? 'Daily Notifications' : 'Weekly Notifications' }}</h1>
+            <h1>{{ trans('dashboard.finance.upcoming') }}</h1>
         </header>
     </div>
     

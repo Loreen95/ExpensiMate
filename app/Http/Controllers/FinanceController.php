@@ -188,4 +188,41 @@ class FinanceController extends Controller
         // return 'Test email sent successfully.';
         return view('notification.emails.notification', $data);
     }
+
+    public function addExpense(Request $request)
+    {
+        $data = $request->validate([
+            'cost' => 'required|numeric|between:0,999999.99',
+            'description' => 'nullable|string|max:255',
+            'expense_type' => 'required|in:fixed,variable',
+            'due_date' => 'required|date',
+            'category_id' => 'required|integer',
+        ]);
+
+        // Call the addExpense function in the FinanceService
+        $addedExpense = $this->financeService->addExpense($data);
+
+        return response()->json(['message' => 'Expense added successfully', 'expense' => $addedExpense], 201);
+    }
+
+    public function getExpenses()
+    {
+        $user_id = auth()->id();
+
+        // Retrieve expenses for the authenticated user
+        $expenses = Cost::where('user_id', $user_id)->get();
+    
+        return response()->json(['expenses' => $expenses], 200);
+    }
+
+    public function generateStatistics()
+    {
+        $user_id = auth()->id();
+        
+        // Calculate the total expenses for the authenticated user
+        $totalExpenses = Cost::where('user_id', $user_id)->sum('amount');
+    
+        return response()->json(['total_expenses' => $totalExpenses], 200);
+    }
+
 }
