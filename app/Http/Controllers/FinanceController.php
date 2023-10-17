@@ -207,22 +207,18 @@ class FinanceController extends Controller
 
     public function getExpenses()
     {
-        $user_id = auth()->id();
 
         // Retrieve expenses for the authenticated user
-        $expenses = Cost::where('user_id', $user_id)->get();
+        $expenses = Cost::all();
     
         return response()->json(['expenses' => $expenses], 200);
     }
 
     public function generateStatistics()
     {
-        $user_id = auth()->id();
-        
         // Calculate the total expenses for the authenticated user
-        $totalExpenses = Cost::where('user_id', $user_id)->sum('amount');
+        $totalExpenses = Cost::all()->sum('amount');
     
         return response()->json(['total_expenses' => $totalExpenses], 200);
     }
-
 }

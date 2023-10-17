@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FinanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // In routes/api.php
-Route::post('/expenses', 'FinanceController@addExpense');
-Route::get('/expenses', 'FinanceController@getExpenses');
-Route::get('/expenses/statistics', 'FinanceController@generateStatistics');
+Route::post('/expenses', [FinanceController::class, 'addExpense']);
+Route::get('/expenses', [FinanceController::class, 'getExpenses']);
+Route::get('/expenses/statistics', [FinanceController::class, 'generateStatistics']);
+
