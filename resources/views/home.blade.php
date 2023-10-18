@@ -7,7 +7,7 @@
         <div class="container mx-auto text-center">
             <h1 class="text-4xl font-semibold mb-6">Take Control of Your Finances</h1>
             <p class="text-lg text-gray-300 mb-8">Simplify your financial life with Expensimate</p>
-            <a href="#" class="mt-6 inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105">Get Started</a>
+            <a href="{{ route('register') }}" class="mt-6 inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105">Get Started</a>
         </div>
     </div>
 

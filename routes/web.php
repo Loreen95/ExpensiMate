@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProfileController;
@@ -62,9 +63,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/notification/preferences', [NotificationsController::class, 'update'])->name('notification.preferences.update');
 });
 
-
+Route::get('/currency', [CurrencyController::class, 'index'])->name('currency');
 
 Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
+
+Route::post('/update-currency/{currency}', [CurrencyController::class, 'update'])->name('currency.update');
 
 Route::get('/send-test-email', [FinanceController::class, 'sendTestEmail']);
 
