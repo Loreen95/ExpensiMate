@@ -10,6 +10,8 @@ use App\Services\FinanceService;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NotificationMail;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Receipt;
 
 class FinanceController extends Controller
 {
@@ -47,6 +49,11 @@ class FinanceController extends Controller
     public function showAddCategoryForm()
     {
         return view('finance.category_add');
+    }
+
+    public function showAddReceiptForm()
+    {
+        return view('finance.receipt_add');
     }
 
     public function edit($id)
@@ -220,5 +227,27 @@ class FinanceController extends Controller
         $totalExpenses = Cost::all()->sum('amount');
     
         return response()->json(['total_expenses' => $totalExpenses], 200);
+    }
+
+     // DRINGEND : php artisan storage:link moet je doen voor images om gedisplayed te worden. Anders werkt het NIET!
+    public function addReceipt(Request $request)
+    {
+        $request->file('media')->storeAs('public/images/post-media', 'post_' . time() . '.jpg');
+        $filePath = 'storage/images/post-media/' . 'post_' . time() . '.jpg';
+
+        $receipt = new Receipt([
+            'media' => $filePath,
+            'user_id' => Auth::id(),
+        ]);
+
+        $receipt->save();
+        return redirect()->route('finance.receipt_list');
+    }
+
+    public function receiptList()
+    {
+        $receipts = $this->financeService->getReceipt();
+
+        return view('finance.receipt_list', compact('receipts'));
     }
 }

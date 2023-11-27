@@ -49,4 +49,8 @@ class User extends Authenticatable
         return $this->hasOne(NotificationPreference::class);
     }
 
+    public function receipts()
+    {
+        return $this->hasMany(Receipts::class);
+    }
 }

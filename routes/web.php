@@ -47,6 +47,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/finance/category/add', [FinanceController::class, 'showAddCategoryForm'])->name('finance.category_add');
     Route::post('/finance/category/add', [FinanceController::class, 'addCategory'])->name('finance.category_add.post');
 
+    Route::get('/finance/receipt/add', [FinanceController::class, 'showAddReceiptForm'])->name('finance.receipt_add');
+    route::post('/finance/receipt/add', [FinanceController::class, 'AddReceipt'])->name('finance.receipt_add.post');
+
+    Route::get('/finance/receipt/list', [FinanceController::class, 'receiptList'])->name('finance.receipt_list');
+
     Route::delete('/finance/remove/{id}', [FinanceController::class, 'remove'])->name('finance.remove');
 
     Route::get('/finance/graph', [FinanceController::class, 'generateMonthlyExpensesChart'])->name('finance.graph');

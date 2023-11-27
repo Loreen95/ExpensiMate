@@ -4,6 +4,7 @@ namespace app\Services;
 
 use App\Models\Cost;
 use App\Models\Category;
+use App\Models\Receipt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +14,9 @@ class FinanceService
     public $totalVariable = 0;
 
     public function getDashboardData()
-    {
+    { 
+        $totalCost = 0;
+        $totalVariable = 0;
         $dashboardData = [
             'fixedExpenses' => $this->getFixedExpenses(),
             'variableExpenses' => $this->getVariableExpenses(),
@@ -234,5 +237,12 @@ class FinanceService
             ->get();
 
             return $paidExpenses;
+    }
+
+    public function getReceipt()
+    {
+        // Retrieve expenses with media information for the currently authenticated user
+        $receipts = Receipt::all();
+        return $receipts;
     }
 }
